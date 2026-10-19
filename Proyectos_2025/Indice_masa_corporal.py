@@ -1,4 +1,6 @@
 """
+Calculadora de índice de masa corporal (IMC) con clasificación.
+
 ⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⢰⣿⡿⠗⠀⠠⠄⡀⠀⠀⠀⠀
 ⠀⠀⠀⠀⡜⠁⠀⠀⠀⠀⠀⠈⠑⢶⣶⡄
@@ -29,9 +31,9 @@ def calcular_imc():
 
         if imc < 18.5:
             resultado += "Clasificación: Bajo peso"
-        elif 18.5 <= imc < 24.9:
+        elif imc < 25:
             resultado += "Clasificación: Normal"
-        elif 25 <= imc < 29.9:
+        elif imc < 30:
             resultado += "Clasificación: Sobrepeso"
         else:
             resultado += "Clasificación: Obesidad"

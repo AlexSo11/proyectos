@@ -1,4 +1,7 @@
 """
+Calculadora de programador: operaciones básicas, trigonometría y
+conversiones entre hexadecimal, decimal, octal y binario.
+
 ⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⢰⣿⡿⠗⠀⠠⠄⡀⠀⠀⠀⠀
 ⠀⠀⠀⠀⡜⠁⠀⠀⠀⠀⠀⠈⠑⢶⣶⡄
@@ -20,7 +23,6 @@ class Calculadora:
     def __init__(self):
         self.root = tk.Tk()
         self.root.title("Calculadora 2.0")
-        #self.root.geometry("340x420")
         
         #variables de estado
         self.display_text = ""
@@ -86,18 +88,12 @@ class Calculadora:
             self.crear_boton(texto, fila, col)
         self.actualizar_display()
     
-    def crear_boton(self, texto, fila, col): #bg=None, fg=None
-        #if bg is None or fg is None:
-        #    bg, fg= self.obtener_color_boton(texto)"""
+    def crear_boton(self, texto, fila, col):
         boton = tk.Button(self.root, text=texto, font=("Arial", 12), width=5, height=2,
                          command=lambda t=texto: self.boton_presionado(t))
         boton.grid(row=fila, column=col, padx=5, pady=5)
         return boton
     
-    #def obtener_color_boton(self, texto):
-        #if texto in ["<-"]:
-            #return "#FF9500", "#000000"
-
     def boton_presionado(self, texto):
         if texto.isdigit() or texto in "ABCDEF.":
             self.agregar_digito(texto)
@@ -185,7 +181,7 @@ class Calculadora:
                     self.operator = None
                     self.waiting_operand = False
                     
-            except (ValueError, ZeroDivisionError) as e:
+            except (ValueError, ZeroDivisionError):
                 self.display_text = "Error"
                 self.operand1 = None
                 self.operator = None
@@ -300,6 +296,7 @@ class Calculadora:
         numero = self.obtener_valor()
         if numero < 0:
             self.display_text = "Error"
+            self.actualizar_display()
             return
         
         if numero == 0:
@@ -324,6 +321,7 @@ class Calculadora:
         numero = self.obtener_valor()
         if numero < 0 or numero != int(numero):
             self.display_text = "Error"
+            self.actualizar_display()
             return
         
         resultado = 1
@@ -370,11 +368,11 @@ class Calculadora:
         if any(c in "ABCDEF" for c in self.display_text.upper()):
             try:
                 return int(self.display_text, 16)
-            except:
+            except ValueError:
                 return 0
         try:
             return float(self.display_text)
-        except:
+        except ValueError:
             return 0
     
     def formatear_numero(self, numero):#Para mejor visibilidad
@@ -434,7 +432,7 @@ class Calculadora:
             bin_val = self.decimal_a_binario(int(valor))
             self.conversion_labels[3].config(text=f"Bin: {bin_val}")
             
-        except:
+        except (ValueError, TypeError, OverflowError):
             for label in self.conversion_labels:
                 label.config(text=label.cget("text").split(":")[0] + ": Error")
     

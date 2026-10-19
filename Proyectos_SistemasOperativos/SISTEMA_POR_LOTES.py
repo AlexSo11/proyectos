@@ -1,4 +1,7 @@
 """
+Simulador de procesamiento por lotes: divide los procesos en lotes de tres,
+ejecuta cada uno y permite pausar, interrumpir o marcar error.
+
 ⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⢰⣿⡿⠗⠀⠠⠄⡀⠀⠀⠀⠀
 ⠀⠀⠀⠀⡜⠁⠀⠀⠀⠀⠀⠈⠑⢶⣶⡄

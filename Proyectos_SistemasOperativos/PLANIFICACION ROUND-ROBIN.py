@@ -1,4 +1,7 @@
 """
+Simulador de planificación Round-Robin con colas de nuevos, listos,
+bloqueados y terminados, quantum configurable y tabla BCP.
+
 ⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⢰⣿⡿⠗⠀⠠⠄⡀⠀⠀⠀⠀
 ⠀⠀⠀⠀⡜⠁⠀⠀⠀⠀⠀⠈⠑⢶⣶⡄
@@ -14,11 +17,12 @@
 Desarrollo AlexWhite USER GIT AlexSo11
 """
 import tkinter as tk
-from tkinter import ttk, messagebox, scrolledtext
+from tkinter import ttk, messagebox
 import random
 import threading
 import time
 import queue
+import traceback
 
 class Proceso:
     def __init__(self, pid, tiempo_maximo, operacion, tiempo_llegada):
@@ -41,10 +45,20 @@ class Proceso:
         
     def calcular_resultado(self):
         try:
-            self.resultado = eval(self.operacion)
-            if isinstance(self.resultado, float):
-                self.resultado = round(self.resultado, 2)
-        except:
+            izquierda, operador, derecha = self.operacion.split()
+            a, b = int(izquierda), int(derecha)
+            if operador == '+':
+                resultado = a + b
+            elif operador == '-':
+                resultado = a - b
+            elif operador == '*':
+                resultado = a * b
+            elif operador == '/':
+                resultado = a / b
+            else:
+                raise ValueError(f"Operador no soportado: {operador}")
+            self.resultado = round(resultado, 2) if isinstance(resultado, float) else resultado
+        except Exception:
             self.resultado = "ERROR"
             self.error = True
 
@@ -102,7 +116,7 @@ class SimuladorRoundRobin:
                                           f"Presione 'B' para ver la tabla completa de procesos (BCP)")
                 except queue.Empty:
                     break
-        except:
+        except Exception:
             pass
         
         # Programar siguiente verificación
@@ -455,7 +469,10 @@ class SimuladorRoundRobin:
             print(f"[T={self.reloj}] ▶ Simulación CONTINUADA (Tecla C)")
         # Si se presiona C y hay ventana BCP abierta, cerrarla
         if self.ventana_bcp:
-            self.ventana_bcp.destroy()
+            try:
+                self.ventana_bcp.destroy()
+            except Exception:
+                pass
             self.ventana_bcp = None
     
     def mostrar_bcp(self):
@@ -467,7 +484,11 @@ class SimuladorRoundRobin:
         
         # Si ya existe una ventana, cerrarla primero
         if self.ventana_bcp:
-            self.ventana_bcp.destroy()
+            try:
+                self.ventana_bcp.destroy()
+            except Exception:
+                pass
+            self.ventana_bcp = None
         
         # Crear ventana de BCP
         self.ventana_bcp = tk.Toplevel(self.root)
@@ -577,15 +598,15 @@ class SimuladorRoundRobin:
         try:
             if self.ventana_bcp:
                 self.ventana_bcp.destroy()
-        except:
+        except Exception:
             pass
         try:
             self.root.quit()
-        except:
+        except Exception:
             pass
         try:
             self.root.destroy()
-        except:
+        except Exception:
             pass
     
     def terminar_proceso(self, proceso):
@@ -697,7 +718,7 @@ class SimuladorRoundRobin:
         while not self.cola_mensajes.empty():
             try:
                 self.cola_mensajes.get_nowait()
-            except:
+            except Exception:
                 break
         
         # Crear procesos iniciales
@@ -777,7 +798,6 @@ class SimuladorRoundRobin:
                 
             except Exception as e:
                 print(f"Error en simulación: {e}")
-                import traceback
                 traceback.print_exc()
                 break
         
@@ -803,5 +823,4 @@ if __name__ == "__main__":
         simulador.run()
     except Exception as e:
         print(f"Error fatal: {e}")
-        import traceback
         traceback.print_exc()
