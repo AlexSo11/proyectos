@@ -14,20 +14,20 @@ No hay dependencias externas: todos los scripts usan solo la biblioteca estánda
 
 | Proyecto | Archivo | Descripción |
 |----------|---------|-------------|
-| Calculadora de programador | `Proyectos_2025/Calculadora_programador.py` | Calculadora Tkinter con operaciones básicas, trigonometría, raíz cuadrada, factorial, porcentaje y conversión entre hexadecimal, decimal, octal y binario. |
-| Índice de masa corporal | `Proyectos_2025/Indice_masa_corporal.py` | Calcula el IMC a partir del peso y la altura, y muestra su clasificación. |
-| Planificación Round-Robin | `Proyectos_SistemasOperativos/PLANIFICACION ROUND-ROBIN.py` | Simulación de planificación Round-Robin con quantum configurable, colas de nuevos, listos, bloqueados y terminados, y tabla BCP. |
-| Sistema por lotes | `Proyectos_SistemasOperativos/SISTEMA_POR_LOTES.py` | Simulación de procesamiento por lotes: agrupa los procesos de tres en tres y permite pausar, interrumpir o marcar error. |
+| Calculadora de programador | `code_proyectos/Calculadora_programador.py` | Calculadora Tkinter con operaciones básicas, trigonometría, raíz cuadrada, factorial, porcentaje y conversión entre hexadecimal, decimal, octal y binario. |
+| Índice de masa corporal | `code_proyectos/Indice_masa_corporal.py` | Calcula el IMC a partir del peso y la altura, y muestra su clasificación. |
+| Planificación Round-Robin | `code_proyectos/PLANIFICACION ROUND-ROBIN.py` | Simulación de planificación Round-Robin con quantum configurable, colas de nuevos, listos, bloqueados y terminados, y tabla BCP. |
+| Sistema por lotes | `code_proyectos/SISTEMA_POR_LOTES.py` | Simulación de procesamiento por lotes: agrupa los procesos de tres en tres y permite pausar, interrumpir o marcar error. |
 
 ## Ejecución
 
 Cada script abre su propia ventana de Tkinter:
 
 ```bash
-python Proyectos_2025/Calculadora_programador.py
-python Proyectos_2025/Indice_masa_corporal.py
-python "Proyectos_SistemasOperativos/PLANIFICACION ROUND-ROBIN.py"
-python Proyectos_SistemasOperativos/SISTEMA_POR_LOTES.py
+python code_proyectos/Calculadora_programador.py
+python code_proyectos/Indice_masa_corporal.py
+python "code_proyectos/PLANIFICACION ROUND-ROBIN.py"
+python code_proyectos/SISTEMA_POR_LOTES.py
 ```
 
 ## Notas
